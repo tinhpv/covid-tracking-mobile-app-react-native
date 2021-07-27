@@ -21,7 +21,7 @@ import CountryView from '../components/CountryView';
 import {fetchGeneralData, fetchAllCountriesData} from '../redux/actions';
 
 const HomeScreen = props => {
-  const {generalData, countries} = props;
+  const {generalData, countries, navigation} = props;
   const top10Countries = countries.slice(0, 10);
 
   useEffect(() => {
@@ -81,7 +81,10 @@ const HomeScreen = props => {
           <Text style={{...styles.header, marginTop: 10, marginBottom: 0}}>
             Top Countries
           </Text>
-          <TouchableOpacity onPress={() => {}}>
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate('Countries');
+            }}>
             <View
               style={{
                 flexDirection: 'row',
@@ -175,7 +178,10 @@ HomeScreen.navigationOptions = () => {
 };
 
 const mapStateToProps = state => {
-  return {generalData: state.generalData, countries: state.countriesData};
+  return {
+    generalData: state.generalData,
+    countries: state.countriesData,
+  };
 };
 
 export default connect(mapStateToProps, {

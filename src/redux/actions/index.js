@@ -6,6 +6,6 @@ export const fetchGeneralData = () => async dispatch => {
 };
 
 export const fetchAllCountriesData = () => async dispatch => {
-  const response = await disease.get('/countries?sort=cases');
+  const response = await disease.get('/countries?sort=todayCases');
   dispatch({type: 'FETCH_ALL_COUNTRIES', payload: response.data});
 };
