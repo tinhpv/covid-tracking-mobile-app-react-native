@@ -18,7 +18,7 @@ export default {
   },
   text: {
     default: '#150B40',
-    minor: '#858587',
+    minor: '#606060',
     infections: '#301786',
     death: '#E02020',
     recovery: '#217E08',

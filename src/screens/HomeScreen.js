@@ -121,7 +121,7 @@ const HomeScreen = props => {
   };
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={styles.container}>
       <ScrollView showsVerticalScrollIndicator="false">
         {renderHeaderImage()}
         <View style={styles.body}>
@@ -135,8 +135,9 @@ const HomeScreen = props => {
 };
 
 const styles = StyleSheet.create({
+  container: {flex: 1, backgroundColor: 'white'},
   headerImage: {
-    height: 290,
+    height: 230,
     width: '100%',
     zIndex: 100,
   },
@@ -154,12 +155,12 @@ const styles = StyleSheet.create({
     fontFamily: 'Raleway-SemiBold',
     color: Colors.text.default,
     marginHorizontal: 20,
-    marginTop: 45,
+    marginTop: 25,
     marginBottom: 20,
   },
   topHorizontalButtons: {
     flexDirection: 'row',
-    marginRight: 20,
+    marginRight: 14,
   },
   infoText: {
     fontFamily: 'Raleway-Regular',

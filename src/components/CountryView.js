@@ -15,7 +15,7 @@ const CountryView = ({countryData}) => {
       />
       <Text style={styles.countryName}>{country}</Text>
       <View style={styles.numberView}>
-        <Text style={styles.number}>{cases}</Text>
+        <Text style={styles.number}>{cases.toLocaleString()}</Text>
         <Image
           style={styles.upSign}
           source={require('../../assets/images/up_triangle.png')}
@@ -27,7 +27,7 @@ const CountryView = ({countryData}) => {
 const styles = StyleSheet.create({
   container: {
     width: 120,
-    height: 120,
+    height: 90,
     marginRight: 10,
     justifyContent: 'center',
     paddingLeft: 10,
@@ -43,8 +43,8 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   flag: {
-    width: 50,
-    height: 50,
+    width: 26,
+    height: 26,
   },
   countryName: {
     fontFamily: 'Raleway-Light',
