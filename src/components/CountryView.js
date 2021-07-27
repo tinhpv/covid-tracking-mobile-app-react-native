@@ -3,16 +3,19 @@ import {View, Text, StyleSheet, Image} from 'react-native';
 
 import Colors from '../constants/Colors';
 
-const CountryView = ({name, number}) => {
+const CountryView = ({countryData}) => {
+  const {country, countryInfo, cases} = countryData;
+
   return (
     <View style={styles.container}>
       <Image
         style={styles.flag}
-        source={require('../../assets/images/usa.png')}
+        resizeMode="contain"
+        source={{uri: `${countryInfo.flag}`}}
       />
-      <Text style={styles.countryName}>{name}</Text>
+      <Text style={styles.countryName}>{country}</Text>
       <View style={styles.numberView}>
-        <Text style={styles.number}>{number}</Text>
+        <Text style={styles.number}>{cases}</Text>
         <Image
           style={styles.upSign}
           source={require('../../assets/images/up_triangle.png')}

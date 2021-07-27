@@ -4,21 +4,41 @@ import LinearGradient from 'react-native-linear-gradient';
 
 import Colors from '../constants/Colors';
 
-const StatisticView = () => {
+const generateColor = type => {
+  switch (type) {
+    case 'INFECTIONS':
+      return ['#D2C6FF', '#B49DFC', '#301786'];
+    case 'DEATHS':
+      return ['#F6BFBF', '#FDB8B8', '#CC0E0E'];
+    case 'RECOVERIES':
+      return ['#CAE9C1', '#A9F095', '#217E08'];
+    case 'CRITICAL':
+      return ['#FDECBE', '#FFDE8C', '#F3B200'];
+  }
+};
+
+const StatisticView = ({type, mainNumber, todayIncrement}) => {
+  const [gradientColor, todayBackgroundColor, mainTextColor] =
+    generateColor(type);
+  const gradientColorList = [gradientColor, '#ffffff', '#ffffff'];
+
   return (
-    <LinearGradient
-      colors={['#F6BFBF', '#ffffff', '#ffffff']}
-      style={styles.container}>
+    <LinearGradient colors={gradientColorList} style={styles.container}>
       <View style={styles.innerView}>
-        <View style={styles.today}>
-          <Text style={styles.todayText}>+15,218</Text>
+        <View style={{...styles.today, backgroundColor: todayBackgroundColor}}>
+          <Text style={{...styles.todayText, color: mainTextColor}}>
+            +{todayIncrement}
+          </Text>
         </View>
-        <Text style={styles.mainNumber}>1,889,000</Text>
-        <Text style={styles.type}>INFECTIONS</Text>
+        <Text style={{...styles.mainNumber, color: mainTextColor}}>
+          {mainNumber}
+        </Text>
+        <Text style={styles.type}>{type}</Text>
       </View>
     </LinearGradient>
   );
 };
+
 const styles = StyleSheet.create({
   container: {
     width: 150,
@@ -35,19 +55,16 @@ const styles = StyleSheet.create({
   today: {
     borderRadius: 20,
     marginBottom: 4,
-    backgroundColor: '#FDB8B8',
   },
   todayText: {
     fontSize: 12,
     fontFamily: 'Raleway-SemiBold',
-    color: '#CC0E0E',
     padding: 5,
     textAlign: 'center',
   },
   mainNumber: {
-    fontSize: 15,
+    fontSize: 18,
     fontFamily: 'Raleway-ExtraBold',
-    color: '#CC0E0E',
     margin: 4,
   },
   type: {
