@@ -5,7 +5,6 @@ import {
   View,
   Text,
   StyleSheet,
-  ImageBackground,
   ScrollView,
   FlatList,
   TouchableOpacity,
@@ -18,6 +17,7 @@ import Colors from '../constants/Colors';
 import {convertToDateString} from '../helpers';
 import StatisticView from '../components/StatisticView';
 import CountryView from '../components/CountryView';
+import CovidLineChart from '../components/CovidLineChart';
 import {fetchGeneralData, fetchAllCountriesData} from '../redux/actions';
 
 const HomeScreen = props => {
@@ -29,12 +29,37 @@ const HomeScreen = props => {
     props.fetchAllCountriesData();
   }, []);
 
-  const renderHeaderImage = () => {
+  const renderHeader = () => {
     return (
-      <ImageBackground
-        style={styles.headerImage}
-        source={require('../../assets/images/header.jpg')}
-      />
+      <View>
+        <View style={styles.headerView}>
+          <Image
+            style={{width: 27, height: 27}}
+            source={require('../../assets/images/virus.png')}
+          />
+          <View style={styles.headerTextView}>
+            <Text style={styles.headerPrimaryText}>COVID-19</Text>
+            <Text style={styles.headerSecondaryText}>VIRUS TRACKER</Text>
+          </View>
+        </View>
+        <View style={styles.remindView}>
+          <Text style={styles.remindTitle}>
+            Report your COVID-19 health status.
+          </Text>
+          <Text style={styles.remindContent}>
+            Take 1 minute every day to report your health status and help us map
+            the spread of COVID to prevail faster
+          </Text>
+        </View>
+      </View>
+    );
+  };
+
+  const renderTimeUpdateData = () => {
+    return (
+      <Text style={styles.infoText}>
+        Last Update | {convertToDateString(generalData.updated)}
+      </Text>
     );
   };
 
@@ -69,6 +94,10 @@ const HomeScreen = props => {
     );
   };
 
+  const renderChart = () => {
+    return <CovidLineChart />;
+  };
+
   const renderTopCountriesView = () => {
     return (
       <View>
@@ -78,9 +107,7 @@ const HomeScreen = props => {
             alignItems: 'baseline',
             justifyContent: 'space-between',
           }}>
-          <Text style={{...styles.header, marginTop: 10, marginBottom: 0}}>
-            Top Countries
-          </Text>
+          <Text style={{...styles.header, marginBottom: 0}}>Top Countries</Text>
           <TouchableOpacity
             onPress={() => {
               navigation.navigate('Countries');
@@ -115,43 +142,58 @@ const HomeScreen = props => {
     );
   };
 
-  const renderBottomInfo = () => {
-    return (
-      <Text style={styles.infoText}>
-        Last Update | {convertToDateString(generalData.updated)}
-      </Text>
-    );
-  };
-
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView showsVerticalScrollIndicator="false">
-        {renderHeaderImage()}
-        <View style={styles.body}>
-          {renderGlobalStatisticView()}
-          {renderTopCountriesView()}
-          {renderBottomInfo()}
-        </View>
+        {renderHeader()}
+        {renderGlobalStatisticView()}
+        {renderChart()}
+        {renderTimeUpdateData()}
+        {renderTopCountriesView()}
       </ScrollView>
     </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {flex: 1, backgroundColor: 'white'},
-  headerImage: {
-    height: 230,
-    width: '100%',
-    zIndex: 100,
-  },
-  body: {
+  container: {
+    flex: 1,
     backgroundColor: 'white',
-    height: '100%',
-    borderTopLeftRadius: 30,
-    borderTopRightRadius: 30,
-    marginTop: -20,
-    marginBottom: 30,
-    zIndex: 101,
+  },
+  headerView: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    margin: 20,
+  },
+  headerTextView: {
+    marginLeft: 8,
+  },
+  headerPrimaryText: {
+    fontSize: 15,
+    fontFamily: 'Raleway-ExtraBold',
+    color: Colors.text.default,
+  },
+  headerSecondaryText: {
+    fontSize: 10,
+    fontFamily: 'Raleway-Regular',
+    color: Colors.text.default,
+  },
+  remindView: {
+    borderRadius: 10,
+    backgroundColor: Colors.text.default,
+    padding: 14,
+    marginHorizontal: 12,
+  },
+  remindTitle: {
+    fontFamily: 'Raleway-SemiBold',
+    color: 'white',
+    fontSize: 13,
+  },
+  remindContent: {
+    fontFamily: 'Raleway-Regular',
+    color: 'white',
+    fontSize: 13,
+    marginTop: 5,
   },
   header: {
     fontSize: 15,
@@ -167,9 +209,10 @@ const styles = StyleSheet.create({
   },
   infoText: {
     fontFamily: 'Raleway-Regular',
-    fontSize: 12,
+    fontSize: 10,
     color: '#7d7d7d',
     marginHorizontal: 20,
+    marginTop: 3,
   },
 });
 
