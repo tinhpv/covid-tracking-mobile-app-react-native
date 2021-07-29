@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react-native/no-inline-styles */
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   View,
   Text,
@@ -18,15 +18,35 @@ import {convertToDateString} from '../helpers';
 import StatisticView from '../components/StatisticView';
 import CountryView from '../components/CountryView';
 import CovidLineChart from '../components/CovidLineChart';
-import {fetchGeneralData, fetchAllCountriesData} from '../redux/actions';
+import TextButton from '../components/TextButton';
+import {
+  fetchGeneralData,
+  fetchAllCountriesData,
+  fetchHistoryData,
+} from '../redux/actions';
+
+const chartOptions = [
+  {id: 0, days: 7, text: '1 week'},
+  {id: 1, days: 14, text: '2 weeks'},
+  {id: 2, days: 30, text: '30 days'},
+];
+const DEFAULT_OPTION = chartOptions[0];
 
 const HomeScreen = props => {
-  const {generalData, countries, navigation} = props;
+  const {generalData, countries, history, navigation} = props;
+  const [selectedOptionId, setOptionId] = useState(DEFAULT_OPTION.id);
   const top10Countries = countries.slice(0, 10);
+  const chartData =
+    selectedOptionId === 0
+      ? history.oneWeek
+      : selectedOptionId === 1
+      ? history.twoWeeks
+      : history.oneMonth;
 
   useEffect(() => {
     props.fetchGeneralData();
     props.fetchAllCountriesData();
+    props.fetchHistoryData(DEFAULT_OPTION.days);
   }, []);
 
   const renderHeader = () => {
@@ -95,7 +115,31 @@ const HomeScreen = props => {
   };
 
   const renderChart = () => {
-    return <CovidLineChart />;
+    return (
+      <View style={{alignItems: 'center'}}>
+        <CovidLineChart
+          data={chartData}
+          option={chartOptions[selectedOptionId]}
+        />
+        <View style={styles.chartOptions}>
+          <Text style={styles.chartType}>NEW CASES</Text>
+          {chartOptions.map(option => {
+            const isSelected = option.id === selectedOptionId;
+            return (
+              <TextButton
+                key={option.id}
+                title={option.text}
+                selected={isSelected}
+                onSelect={() => {
+                  setOptionId(option.id);
+                  props.fetchHistoryData(option.days);
+                }}
+              />
+            );
+          })}
+        </View>
+      </View>
+    );
   };
 
   const renderTopCountriesView = () => {
@@ -214,6 +258,19 @@ const styles = StyleSheet.create({
     marginHorizontal: 20,
     marginTop: 3,
   },
+  chartOptions: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 10,
+    marginTop: 6,
+  },
+  chartType: {
+    fontFamily: 'Raleway-SemiBold',
+    fontSize: 10,
+    color: Colors.text.default,
+    marginRight: 8,
+  },
 });
 
 HomeScreen.navigationOptions = () => {
@@ -224,10 +281,12 @@ const mapStateToProps = state => {
   return {
     generalData: state.generalData,
     countries: state.countriesData,
+    history: state.history,
   };
 };
 
 export default connect(mapStateToProps, {
   fetchGeneralData,
   fetchAllCountriesData,
+  fetchHistoryData,
 })(HomeScreen);

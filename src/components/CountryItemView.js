@@ -1,9 +1,9 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
-import {View, Text, StyleSheet, Image, ImagePickerIOS} from 'react-native';
+import {View, Text, StyleSheet, Image} from 'react-native';
 
 import Colors from '../constants/Colors';
-import {shortenInt} from '../helpers';
+import {abbreviate} from '../helpers';
 
 const CountryItemView = ({countryData}) => {
   const {country, countryInfo, todayCases, todayRecovered} = countryData;
@@ -20,7 +20,7 @@ const CountryItemView = ({countryData}) => {
         <View style={styles.bottomNumberListView}>
           <View style={styles.numberView}>
             <Text style={styles.number}>
-              Affected: +{shortenInt(todayCases)}
+              Affected: +{abbreviate(todayCases)}
             </Text>
             <Image
               style={styles.upSign}
@@ -29,7 +29,7 @@ const CountryItemView = ({countryData}) => {
           </View>
           <View style={{...styles.numberView, marginLeft: 20}}>
             <Text style={styles.number}>
-              Recovered: +{shortenInt(todayRecovered)}
+              Recovered: +{abbreviate(todayRecovered)}
             </Text>
             <Image
               style={{...styles.upSign, tintColor: 'green'}}
@@ -61,7 +61,6 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.25,
     shadowRadius: 8.0,
-    elevation: 1,
   },
   flag: {
     width: 60,
@@ -87,7 +86,7 @@ const styles = StyleSheet.create({
   },
   number: {
     fontFamily: 'Raleway-Regular',
-    fontSize: 15,
+    fontSize: 13,
     color: Colors.text.default,
   },
   upSign: {

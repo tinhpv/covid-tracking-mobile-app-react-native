@@ -1,13 +1,12 @@
-export const shortenInt = value => {
-  var suffixes = ['', 'k', 'm', 'b', 't'];
-  var suffixNum = Math.floor(('' + value).length / 3);
-  var shortValue = parseFloat(
-    (suffixNum !== 0 ? value / Math.pow(1000, suffixNum) : value).toPrecision(
-      2,
-    ),
-  );
-  if (shortValue % 1 !== 0) {
-    shortValue = shortValue.toFixed(1);
+export const abbreviate = num => {
+  if (num >= 1000000000) {
+    return (num / 1000000000).toFixed(1).replace(/\.0$/, '') + 'G';
   }
-  return shortValue + suffixes[suffixNum];
+  if (num >= 1000000) {
+    return (num / 1000000).toFixed(1).replace(/\.0$/, '') + 'M';
+  }
+  if (num >= 1000) {
+    return (num / 1000).toFixed(1).replace(/\.0$/, '') + 'K';
+  }
+  return num;
 };
