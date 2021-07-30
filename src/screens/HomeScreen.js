@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react-native/no-inline-styles */
-import React, {useEffect, useState, useCallback} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   View,
   Text,
@@ -35,8 +35,7 @@ const DEFAULT_OPTION = chartOptions[0];
 
 const HomeScreen = props => {
   const {generalData, countries, history, navigation} = props;
-  const [refreshing, setRefreshing] = React.useState(false);
-  const top10Countries = countries.slice(0, 10);
+  const top10Countries = countries.data.slice(0, 10);
 
   useEffect(() => {
     props.fetchGeneralData();
@@ -85,24 +84,24 @@ const HomeScreen = props => {
         <View style={styles.topHorizontalButtons}>
           <StatisticView
             type="INFECTIONS"
-            mainNumber={generalData.cases.toLocaleString()}
-            todayIncrement={generalData.todayCases.toLocaleString()}
+            mainNumber={generalData.data.cases.toLocaleString()}
+            todayIncrement={generalData.data.todayCases.toLocaleString()}
           />
           <StatisticView
             type="DEATHS"
-            mainNumber={generalData.deaths.toLocaleString()}
-            todayIncrement={generalData.todayDeaths.toLocaleString()}
+            mainNumber={generalData.data.deaths.toLocaleString()}
+            todayIncrement={generalData.data.todayDeaths.toLocaleString()}
           />
         </View>
         <View style={styles.topHorizontalButtons}>
           <StatisticView
             type="RECOVERIES"
-            mainNumber={generalData.recovered.toLocaleString()}
-            todayIncrement={generalData.todayRecovered.toLocaleString()}
+            mainNumber={generalData.data.recovered.toLocaleString()}
+            todayIncrement={generalData.data.todayRecovered.toLocaleString()}
           />
           <StatisticView
             type="CRITICAL"
-            mainNumber={generalData.critical.toLocaleString()}
+            mainNumber={generalData.data.critical.toLocaleString()}
           />
         </View>
       </View>
@@ -113,10 +112,10 @@ const HomeScreen = props => {
     const [selectedOptionId, setOptionId] = useState(DEFAULT_OPTION.id);
     const chartData =
       selectedOptionId === 0
-        ? history.oneWeek
+        ? history.data.oneWeek
         : selectedOptionId === 1
-        ? history.twoWeeks
-        : history.oneMonth;
+        ? history.data.twoWeeks
+        : history.data.oneMonth;
 
     return (
       <View style={{alignItems: 'center'}}>
@@ -189,18 +188,23 @@ const HomeScreen = props => {
     );
   };
 
-  const onRefresh = useCallback(async () => {
-    setRefreshing(true);
+  const handleRefresh = () => {
     props.fetchGeneralData();
-    generalData.cases > 0 && setRefreshing(false);
-  }, [generalData.cases]);
+    props.fetchAllCountriesData();
+    props.fetchHistoryData();
+  };
 
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView
         showsVerticalScrollIndicator="false"
         refreshControl={
-          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+          <RefreshControl
+            refreshing={
+              generalData.isFetching || history.loading || countries.isFetching
+            }
+            onRefresh={handleRefresh}
+          />
         }>
         {renderHeader()}
         {renderGlobalStatisticView()}
@@ -237,18 +241,18 @@ const styles = StyleSheet.create({
   },
   remindView: {
     borderRadius: 10,
-    backgroundColor: Colors.text.default,
+    backgroundColor: '#DFF6FF',
     padding: 14,
     marginHorizontal: 12,
   },
   remindTitle: {
     fontFamily: 'Raleway-SemiBold',
-    color: 'white',
+    color: '#0C83DD',
     fontSize: 13,
   },
   remindContent: {
     fontFamily: 'Raleway-Regular',
-    color: 'white',
+    color: '#0C83DD',
     fontSize: 13,
     marginTop: 5,
   },

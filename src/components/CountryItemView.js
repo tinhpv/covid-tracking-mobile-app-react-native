@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
   },
   countryName: {
     fontFamily: 'Raleway-SemiBold',
-    fontSize: 16,
+    fontSize: 14,
     color: Colors.text.default,
   },
   bottomNumberListView: {
@@ -86,7 +86,7 @@ const styles = StyleSheet.create({
   },
   number: {
     fontFamily: 'Raleway-Regular',
-    fontSize: 13,
+    fontSize: 12,
     color: Colors.text.default,
   },
   upSign: {
