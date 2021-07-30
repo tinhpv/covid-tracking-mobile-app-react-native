@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react-native/no-inline-styles */
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useCallback} from 'react';
 import {
   View,
   Text,
@@ -10,6 +10,7 @@ import {
   TouchableOpacity,
   Image,
   SafeAreaView,
+  RefreshControl,
 } from 'react-native';
 import {connect} from 'react-redux';
 
@@ -34,14 +35,8 @@ const DEFAULT_OPTION = chartOptions[0];
 
 const HomeScreen = props => {
   const {generalData, countries, history, navigation} = props;
-  const [selectedOptionId, setOptionId] = useState(DEFAULT_OPTION.id);
+  const [refreshing, setRefreshing] = React.useState(false);
   const top10Countries = countries.slice(0, 10);
-  const chartData =
-    selectedOptionId === 0
-      ? history.oneWeek
-      : selectedOptionId === 1
-      ? history.twoWeeks
-      : history.oneMonth;
 
   useEffect(() => {
     props.fetchGeneralData();
@@ -114,7 +109,15 @@ const HomeScreen = props => {
     );
   };
 
-  const renderChart = () => {
+  const RenderChart = () => {
+    const [selectedOptionId, setOptionId] = useState(DEFAULT_OPTION.id);
+    const chartData =
+      selectedOptionId === 0
+        ? history.oneWeek
+        : selectedOptionId === 1
+        ? history.twoWeeks
+        : history.oneMonth;
+
     return (
       <View style={{alignItems: 'center'}}>
         <CovidLineChart
@@ -186,12 +189,22 @@ const HomeScreen = props => {
     );
   };
 
+  const onRefresh = useCallback(async () => {
+    setRefreshing(true);
+    props.fetchGeneralData();
+    generalData.cases > 0 && setRefreshing(false);
+  }, [generalData.cases]);
+
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView showsVerticalScrollIndicator="false">
+      <ScrollView
+        showsVerticalScrollIndicator="false"
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }>
         {renderHeader()}
         {renderGlobalStatisticView()}
-        {renderChart()}
+        {RenderChart()}
         {renderTimeUpdateData()}
         {renderTopCountriesView()}
       </ScrollView>
