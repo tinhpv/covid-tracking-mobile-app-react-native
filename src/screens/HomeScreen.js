@@ -14,7 +14,7 @@ import {
 } from 'react-native';
 import {connect} from 'react-redux';
 
-import Colors from '../constants/Colors';
+import {icons, COLORS, FONTS, SIZES} from '../constants';
 import {convertToDateString} from '../helpers';
 import StatisticView from '../components/StatisticView';
 import CountryView from '../components/CountryView';
@@ -47,10 +47,7 @@ const HomeScreen = props => {
     return (
       <View>
         <View style={styles.headerView}>
-          <Image
-            style={{width: 27, height: 27}}
-            source={require('../../assets/images/virus.png')}
-          />
+          <Image style={{width: 27, height: 27}} source={icons.virus} />
           <View style={styles.headerTextView}>
             <Text style={styles.headerPrimaryText}>COVID-19</Text>
             <Text style={styles.headerSecondaryText}>VIRUS TRACKER</Text>
@@ -72,7 +69,7 @@ const HomeScreen = props => {
   const renderTimeUpdateData = () => {
     return (
       <Text style={styles.infoText}>
-        Last Update | {convertToDateString(generalData.updated)}
+        Last Update | {convertToDateString(generalData.data.updated)}
       </Text>
     );
   };
@@ -147,30 +144,15 @@ const HomeScreen = props => {
   const renderTopCountriesView = () => {
     return (
       <View>
-        <View
-          style={{
-            flexDirection: 'row',
-            alignItems: 'baseline',
-            justifyContent: 'space-between',
-          }}>
+        <View style={styles.section}>
           <Text style={{...styles.header, marginBottom: 0}}>Top Countries</Text>
           <TouchableOpacity
             onPress={() => {
               navigation.navigate('Countries');
             }}>
-            <View
-              style={{
-                flexDirection: 'row',
-                justifyContent: 'space-evenly',
-                alignItems: 'center',
-              }}>
-              <Text style={{fontFamily: 'Raleway-Regular', fontSize: 12}}>
-                View all
-              </Text>
-              <Image
-                style={{width: 5, height: 5, marginLeft: 4, marginRight: 20}}
-                source={require('../../assets/images/right-arrow.png')}
-              />
+            <View style={styles.viewAllButton}>
+              <Text style={styles.headerButtonText}>View all</Text>
+              <Image style={styles.rightIcon} source={icons.right} />
             </View>
           </TouchableOpacity>
         </View>
@@ -179,7 +161,7 @@ const HomeScreen = props => {
           contentContainerStyle={{marginHorizontal: 20, marginVertical: 20}}
           showsHorizontalScrollIndicator={false}
           data={top10Countries}
-          keyExtractor={(item, index) => index}
+          keyExtractor={(_item, index) => index}
           renderItem={({item}) => {
             return <CountryView countryData={item} />;
           }}
@@ -230,36 +212,36 @@ const styles = StyleSheet.create({
     marginLeft: 8,
   },
   headerPrimaryText: {
-    fontSize: 15,
-    fontFamily: 'Raleway-ExtraBold',
-    color: Colors.text.default,
+    fontSize: 18,
+    fontFamily: FONTS.extraBold,
+    color: COLORS.violet,
   },
   headerSecondaryText: {
-    fontSize: 10,
-    fontFamily: 'Raleway-Regular',
-    color: Colors.text.default,
+    fontSize: SIZES.h6,
+    fontFamily: FONTS.regular,
+    color: COLORS.violet,
   },
   remindView: {
     borderRadius: 10,
-    backgroundColor: '#DFF6FF',
+    backgroundColor: COLORS.patternBlue,
     padding: 14,
     marginHorizontal: 12,
   },
   remindTitle: {
-    fontFamily: 'Raleway-SemiBold',
-    color: '#0C83DD',
-    fontSize: 13,
+    fontFamily: FONTS.semiBold,
+    color: COLORS.cerulean,
+    fontSize: SIZES.h5,
   },
   remindContent: {
-    fontFamily: 'Raleway-Regular',
-    color: '#0C83DD',
-    fontSize: 13,
+    fontFamily: FONTS.regular,
+    color: COLORS.cerulean,
+    fontSize: SIZES.body5,
     marginTop: 5,
   },
   header: {
-    fontSize: 15,
-    fontFamily: 'Raleway-SemiBold',
-    color: Colors.text.default,
+    fontSize: SIZES.body3,
+    fontFamily: FONTS.semiBold,
+    color: COLORS.violet,
     marginHorizontal: 20,
     marginTop: 25,
     marginBottom: 20,
@@ -269,9 +251,9 @@ const styles = StyleSheet.create({
     marginRight: 14,
   },
   infoText: {
-    fontFamily: 'Raleway-Regular',
-    fontSize: 10,
-    color: '#7d7d7d',
+    fontFamily: FONTS.regular,
+    fontSize: SIZES.body5,
+    color: COLORS.boulder,
     marginHorizontal: 20,
     marginTop: 3,
   },
@@ -283,10 +265,30 @@ const styles = StyleSheet.create({
     marginTop: 6,
   },
   chartType: {
-    fontFamily: 'Raleway-SemiBold',
-    fontSize: 10,
-    color: Colors.text.default,
+    fontFamily: FONTS.semiBold,
+    fontSize: SIZES.h6,
+    color: COLORS.violet,
     marginRight: 8,
+  },
+  headerButtonText: {
+    fontFamily: FONTS.regular,
+    fontSize: SIZES.body5,
+  },
+  section: {
+    flexDirection: 'row',
+    alignItems: 'baseline',
+    justifyContent: 'space-between',
+  },
+  viewAllButton: {
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+    alignItems: 'center',
+  },
+  rightIcon: {
+    width: 5,
+    height: 5,
+    marginLeft: 4,
+    marginRight: 20,
   },
 });
 

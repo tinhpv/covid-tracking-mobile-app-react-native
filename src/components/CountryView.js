@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, Text, StyleSheet, Image} from 'react-native';
 
-import Colors from '../constants/Colors';
+import {icons, COLORS, FONTS, SIZES} from '../constants';
 
 const CountryView = ({countryData}) => {
   const {country, countryInfo, cases} = countryData;
@@ -16,10 +16,7 @@ const CountryView = ({countryData}) => {
       <Text style={styles.countryName}>{country}</Text>
       <View style={styles.numberView}>
         <Text style={styles.number}>{cases.toLocaleString()}</Text>
-        <Image
-          style={styles.upSign}
-          source={require('../../assets/images/up_triangle.png')}
-        />
+        <Image style={styles.upSign} source={icons.up} />
       </View>
     </View>
   );
@@ -32,7 +29,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     paddingLeft: 10,
     backgroundColor: 'white',
-    shadowColor: '#878787',
+    shadowColor: COLORS.gray,
     shadowOffset: {
       width: 0,
       height: 0,
@@ -47,9 +44,9 @@ const styles = StyleSheet.create({
     height: 26,
   },
   countryName: {
-    fontFamily: 'Raleway-Light',
-    fontSize: 10,
-    color: '#858585',
+    fontFamily: FONTS.light,
+    fontSize: SIZES.h6,
+    color: COLORS.tundora,
   },
   numberView: {
     marginTop: 4,
@@ -57,9 +54,9 @@ const styles = StyleSheet.create({
     alignItems: 'flex-end',
   },
   number: {
-    fontFamily: 'Raleway-SemiBold',
-    fontSize: 15,
-    color: Colors.text.default,
+    fontFamily: FONTS.semiBold,
+    fontSize: SIZES.body3,
+    color: COLORS.violet,
   },
   upSign: {
     width: 16,

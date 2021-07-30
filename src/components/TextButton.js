@@ -1,12 +1,12 @@
 import React from 'react';
 import {Text, TouchableOpacity, StyleSheet} from 'react-native';
 
-import Colors from '../constants/Colors';
+import {COLORS, FONTS} from '../constants';
 
-const SELECTED_COLOR = Colors.text.default;
-const UNSELECTED_COLOR = 'white';
-const SELECTED_TEXT_COLOR = 'white';
-const UNSELECTED_TEXT_COLOR = Colors.text.default;
+const SELECTED_COLOR = COLORS.violet;
+const UNSELECTED_COLOR = COLORS.white;
+const SELECTED_TEXT_COLOR = COLORS.white;
+const UNSELECTED_TEXT_COLOR = COLORS.violet;
 
 const TextButton = props => {
   const {onSelect, selected, title} = props;
@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   title: {
-    fontFamily: 'Raleway-Regular',
+    fontFamily: FONTS.regular,
     fontSize: 9,
     marginVertical: 5,
     marginHorizontal: 8,

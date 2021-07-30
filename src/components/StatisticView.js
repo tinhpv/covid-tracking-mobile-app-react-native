@@ -2,7 +2,7 @@ import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 
-import Colors from '../constants/Colors';
+import {COLORS, FONTS, SIZES} from '../constants';
 
 const generateColor = type => {
   switch (type) {
@@ -20,10 +20,9 @@ const generateColor = type => {
 const StatisticView = ({type, mainNumber, todayIncrement}) => {
   const [gradientColor, todayBackgroundColor, mainTextColor] =
     generateColor(type);
-  const gradientColorList = [gradientColor, '#ffffff', '#ffffff'];
+  const gradientColorList = [gradientColor, COLORS.white, COLORS.white];
 
   return (
-    // <View style={styles.container}>
     <LinearGradient colors={gradientColorList} style={styles.container}>
       {type === 'CRITICAL' ? null : (
         <View style={{...styles.today, backgroundColor: todayBackgroundColor}}>
@@ -45,7 +44,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     height: 120,
-    backgroundColor: 'white',
+    backgroundColor: COLORS.white,
     borderRadius: 10,
     justifyContent: 'center',
     alignItems: 'center',
@@ -60,22 +59,22 @@ const styles = StyleSheet.create({
     marginBottom: 4,
   },
   todayText: {
-    fontSize: 12,
-    fontFamily: 'Raleway-SemiBold',
+    fontSize: SIZES.body5,
+    fontFamily: FONTS.semiBold,
     paddingHorizontal: 10,
     paddingVertical: 5,
 
     textAlign: 'center',
   },
   mainNumber: {
-    fontSize: 18,
-    fontFamily: 'Raleway-ExtraBold',
+    fontSize: SIZES.body3,
+    fontFamily: FONTS.extraBold,
     margin: 4,
   },
   type: {
-    fontSize: 12,
-    fontFamily: 'Raleway-Regular',
-    color: Colors.text.minor,
+    fontSize: SIZES.body5,
+    fontFamily: FONTS.regular,
+    color: COLORS.tundora,
     margin: 4,
   },
 });

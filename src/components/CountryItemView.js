@@ -2,7 +2,7 @@
 import React from 'react';
 import {View, Text, StyleSheet, Image} from 'react-native';
 
-import Colors from '../constants/Colors';
+import {icons, COLORS, FONTS, SIZES} from '../constants';
 import {abbreviate} from '../helpers';
 
 const CountryItemView = ({countryData}) => {
@@ -22,18 +22,15 @@ const CountryItemView = ({countryData}) => {
             <Text style={styles.number}>
               Affected: +{abbreviate(todayCases)}
             </Text>
-            <Image
-              style={styles.upSign}
-              source={require('../../assets/images/up_triangle.png')}
-            />
+            <Image style={styles.upSign} source={icons.up} />
           </View>
           <View style={{...styles.numberView, marginLeft: 20}}>
             <Text style={styles.number}>
               Recovered: +{abbreviate(todayRecovered)}
             </Text>
             <Image
-              style={{...styles.upSign, tintColor: 'green'}}
-              source={require('../../assets/images/up_triangle.png')}
+              style={{...styles.upSign, tintColor: COLORS.forestGreen}}
+              source={icons.up}
             />
           </View>
         </View>
@@ -50,11 +47,11 @@ const styles = StyleSheet.create({
     marginBottom: 12,
     marginHorizontal: 14,
     paddingLeft: 10,
-    backgroundColor: 'white',
+    backgroundColor: COLORS.white,
     borderRadius: 10,
   },
   shadow: {
-    shadowColor: '#878787',
+    shadowColor: COLORS.gray,
     shadowOffset: {
       width: 0,
       height: 1,
@@ -72,9 +69,9 @@ const styles = StyleSheet.create({
     marginLeft: 13,
   },
   countryName: {
-    fontFamily: 'Raleway-SemiBold',
-    fontSize: 14,
-    color: Colors.text.default,
+    fontFamily: FONTS.semiBold,
+    fontSize: SIZES.body4,
+    color: COLORS.violet,
   },
   bottomNumberListView: {
     flexDirection: 'row',
@@ -85,9 +82,9 @@ const styles = StyleSheet.create({
     alignItems: 'flex-end',
   },
   number: {
-    fontFamily: 'Raleway-Regular',
-    fontSize: 12,
-    color: Colors.text.default,
+    fontFamily: FONTS.regular,
+    fontSize: SIZES.body5,
+    color: COLORS.violet,
   },
   upSign: {
     width: 16,

@@ -1,9 +1,8 @@
 import React from 'react';
 import {LineChart} from 'react-native-chart-kit';
-import {View, Dimensions} from 'react-native';
+import {View} from 'react-native';
 import {abbreviate} from '../helpers/index';
-
-const screenWidth = Dimensions.get('window').width;
+import {SIZES, COLORS} from '../constants';
 
 const DEFAULT_DATA = {
   labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'Aug'],
@@ -53,9 +52,9 @@ const generateChartData = (chartData, option) => {
 };
 
 const chartConfig = {
-  backgroundGradientFrom: '#fff',
+  backgroundGradientFrom: COLORS.white,
   backgroundGradientFromOpacity: 0,
-  backgroundGradientTo: '#fff',
+  backgroundGradientTo: COLORS.white,
   backgroundGradientToOpacity: 0.5,
   color: (opacity = 1) => `rgba(21, 11, 64, ${opacity})`,
   barPercentage: 0.5,
@@ -72,7 +71,7 @@ const CovidLineChart = ({data, option}) => {
     <View>
       <LineChart
         data={dataSource}
-        width={screenWidth - 20}
+        width={SIZES.width - 20}
         height={220}
         chartConfig={chartConfig}
         yAxisInterval={7}
