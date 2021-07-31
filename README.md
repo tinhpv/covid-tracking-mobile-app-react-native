@@ -4,9 +4,11 @@ Spending every night within two weeks to learn Javascript, React Native with Red
 All APIs that were consumed in this app, provided by https://disease.sh/
 
 ##Screenshots
+
   <img src="https://github.com/tinhpv/covid-tracking-mobile-app-react-native/blob/main/screenshots/screenshot-1.png?raw=true" width="180" />       <img src="https://github.com/tinhpv/covid-tracking-mobile-app-react-native/blob/main/screenshots/screenshot-2.png?raw=true" width="180" />   <img src="https://github.com/tinhpv/covid-tracking-mobile-app-react-native/blob/main/screenshots/screenshot-3.png?raw=true" width="180" />
 
 ##Design
+
 The app UI was inpired by some other UIs: 
 - https://dribbble.com/shots/10925806-COVID-Virus-Tracking-App-Challenge
 - https://dribbble.com/shots/10982036-Covid-App
