@@ -6,6 +6,7 @@ import {
   FlatList,
   StyleSheet,
   RefreshControl,
+  TouchableOpacity,
 } from 'react-native';
 import {connect} from 'react-redux';
 
@@ -13,10 +14,20 @@ import {fetchAllCountriesData} from '../redux/actions';
 import CountryItemView from '../components/CountryItemView';
 
 const CountriesScreen = props => {
-  const {countries} = props;
+  const {countries, navigation} = props;
 
   const renderCountry = ({item}) => {
-    return <CountryItemView countryData={item} />;
+    return (
+      <TouchableOpacity
+        onPress={() => {
+          navigation.navigate('CountryDetail', {
+            name: item.country,
+            flag: item.countryInfo.flag,
+          });
+        }}>
+        <CountryItemView countryData={item} />
+      </TouchableOpacity>
+    );
   };
 
   const handleRefresh = () => {

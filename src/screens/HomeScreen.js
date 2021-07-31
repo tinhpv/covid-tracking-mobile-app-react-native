@@ -163,7 +163,17 @@ const HomeScreen = props => {
           data={top10Countries}
           keyExtractor={(_item, index) => index}
           renderItem={({item}) => {
-            return <CountryView countryData={item} />;
+            return (
+              <TouchableOpacity
+                onPress={() => {
+                  navigation.navigate('CountryDetail', {
+                    name: item.country,
+                    flag: item.countryInfo.flag,
+                  });
+                }}>
+                <CountryView countryData={item} />
+              </TouchableOpacity>
+            );
           }}
         />
       </View>
@@ -201,7 +211,7 @@ const HomeScreen = props => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'white',
+    backgroundColor: COLORS.white,
   },
   headerView: {
     flexDirection: 'row',
@@ -236,6 +246,7 @@ const styles = StyleSheet.create({
     fontFamily: FONTS.regular,
     color: COLORS.cerulean,
     fontSize: SIZES.body5,
+    lineHeight: 20,
     marginTop: 5,
   },
   header: {

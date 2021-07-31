@@ -4,6 +4,7 @@ import {
   FETCH_HISTORICAL_TWO_WEEKS_SUCCESS,
   FETCH_HISTORICAL_ONE_WEEK_SUCCESS,
   FETCH_HISTORICAL_DATA_FAILURE,
+  FETCH_HISTORICAL_COUNTRY_SUCCESS,
 } from '../actions/type';
 
 const initialState = {
@@ -20,6 +21,12 @@ export default (state = initialState, action) => {
   switch (action.type) {
     case FETCH_HISTORICAL_DATA:
       return {...state, loading: true};
+    case FETCH_HISTORICAL_COUNTRY_SUCCESS:
+      return {
+        ...state,
+        data: {...state.data, oneWeek: action.payload},
+        loading: false,
+      };
     case FETCH_HISTORICAL_ONE_WEEK_SUCCESS:
       return {
         ...state,
