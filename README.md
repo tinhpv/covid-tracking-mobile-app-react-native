@@ -5,7 +5,7 @@ All APIs that were consumed in this app, provided by https://disease.sh/
 
 ## Screenshots
 
-  <img src="https://github.com/tinhpv/covid-tracking-mobile-app-react-native/blob/main/screenshots/screenshot-1.png?raw=true" width="220" />       <img src="https://github.com/tinhpv/covid-tracking-mobile-app-react-native/blob/main/screenshots/screenshot-2.png?raw=true" width="220" />  <img src="https://github.com/tinhpv/covid-tracking-mobile-app-react-native/blob/main/screenshots/screenshot-4.png?raw=true" width="220" />  <img src="https://github.com/tinhpv/covid-tracking-mobile-app-react-native/blob/main/screenshots/screenshot-3.png?raw=true" width="220" />
+  <img src="https://github.com/tinhpv/covid-tracking-mobile-app-react-native/blob/main/screenshots/screenshot-1.png?raw=true" width="200" />       <img src="https://github.com/tinhpv/covid-tracking-mobile-app-react-native/blob/main/screenshots/screenshot-2.png?raw=true" width="200" />  <img src="https://github.com/tinhpv/covid-tracking-mobile-app-react-native/blob/main/screenshots/screenshot-4.png?raw=true" width="200" />  <img src="https://github.com/tinhpv/covid-tracking-mobile-app-react-native/blob/main/screenshots/screenshot-3.png?raw=true" width="200" />
 
 ## Design
 
