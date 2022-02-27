@@ -1,6 +1,5 @@
 # Covid-19 Tracking Mobile App
-Spending every night within two weeks to learn Javascript, React Native with Redux and some middlewares. Covid-19 Tracking is a mini project that was built with my very little knowledge. This app is to track covid-19 with information regarding new infections, deaths and recoveries in all over the world.
-
+This app is to track covid-19 with information regarding new infections, deaths and recoveries in all over the world.
 All APIs that were consumed in this app, provided by https://disease.sh/
 
 ## Screenshots
